@@ -3,6 +3,7 @@ package dev.sergior.cursomc.services;
 import dev.sergior.cursomc.domain.*;
 import dev.sergior.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -39,6 +40,9 @@ public class DBService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
 
     public void instantiateTestDatabase() throws ParseException {
         Categoria ca1 = new Categoria(null, "Informática");
@@ -60,7 +64,8 @@ public class DBService {
         Cidade c2 = new Cidade(null, "São Paulo", sp);
         Cidade c3 = new Cidade(null, "Campinas", sp);
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "sergioricardojsj@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA);
+        Cliente cli1 = new Cliente(null, "Maria Silva", "sergioricardojsj@gmail.com", "36378912377",
+                TipoCliente.PESSOA_FISICA, encoder.encode("123456"));
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
         Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);

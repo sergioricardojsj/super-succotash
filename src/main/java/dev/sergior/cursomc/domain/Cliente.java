@@ -122,4 +122,14 @@ public class Cliente implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", cpfOuCnpj='" + cpfOuCnpj + '\'' +
+                ", tipoCliente=" + tipoCliente +
+                '}';
+    }
 }

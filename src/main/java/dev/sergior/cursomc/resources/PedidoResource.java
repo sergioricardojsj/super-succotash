@@ -29,7 +29,7 @@ public class PedidoResource {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> insert(@RequestBody Pedido pedido) {
+    public ResponseEntity<Void> insert(@RequestBody Pedido pedido) throws ObjectNotFoundException {
         pedidoService.insert(pedido);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

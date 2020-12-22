@@ -1,6 +1,8 @@
 package dev.sergior.cursomc.config;
 
 import dev.sergior.cursomc.services.DBService;
+import dev.sergior.cursomc.services.EmailService;
+import dev.sergior.cursomc.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,11 @@ public class TestConfig {
     public boolean instantiateDatabase() throws ParseException {
         dbService.instantiateTestDatabase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
     }
 
 }

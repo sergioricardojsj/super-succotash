@@ -7,7 +7,6 @@ import dev.sergior.cursomc.exceptions.ObjectNotFoundException;
 import dev.sergior.cursomc.repositories.ItemPedidoRepository;
 import dev.sergior.cursomc.repositories.PagamentoRepository;
 import dev.sergior.cursomc.repositories.PedidoRepository;
-import dev.sergior.cursomc.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +35,9 @@ public class PedidoService {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private EmailService emailService;
 
     public List<Pedido> getPedidos() {
         return pedidoRepository.findAll();
@@ -75,8 +77,8 @@ public class PedidoService {
         });
 
         itemPedidoRepository.saveAll(pedido.getItens());
+        emailService.sendOrderConfirmationEmail(pedido);
 
-        System.out.println(pedido);
         return pedido;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 
 @Service
 public class DBService {
@@ -68,8 +69,15 @@ public class DBService {
                 TipoCliente.PESSOA_FISICA, encoder.encode("123456"));
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
+        Cliente cli2 = new Cliente(null, "Sergio Silva", "sergio.ricardo@dce.ufpb.br", "11183130465",
+                TipoCliente.PESSOA_FISICA, encoder.encode("123456"));
+        cli2.addPerfil(Perfil.ADMIN);
+        cli2.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+
         Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
         Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+        Endereco e3 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli2, c2);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -87,6 +95,7 @@ public class DBService {
         ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli2.getEnderecos().add(e3);
 
         ca1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         ca2.getProdutos().add(p2);
@@ -111,8 +120,8 @@ public class DBService {
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
         estadoRepository.saveAll(Arrays.asList(mg, sp));
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
-        clienteRepository.save(cli1);
-        enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+        enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
         itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
